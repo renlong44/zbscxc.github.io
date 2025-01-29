@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff69b4, #9400d3);
+            font-family: 'Comic Sans MS';
+        }
+        .question {
+            padding: 20px;
+            border: 3px dashed #ff1493;
+            margin: 10px;
+            background: rgba(255, 182, 193, 0.9);
+        }
+        .icon {
+            font-size: 40px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .icon:hover {
+            transform: scale(1.5) rotate(30deg);
+        }
+        #result {
+            display: none;
+            padding: 30px;
+            background: #ff1493;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz">
+        <div class="question">
+            <h2>当花花看到志墓的狗碗时，她会：</h2>
+            <div class="icon" onclick="addScore(5)">🍑 试图坐在碗里</div>
+            <div class="icon" onclick="addScore(10)">🍆 用神秘液体填满它</div>
+            <div class="icon" onclick="addScore(-5)">💦 报警说碗在勾引她</div>
+        </div>
+        
+        <div class="question">
+            <h2>志墓的狗尾巴让花花联想到：</h2>
+            <div class="icon" onclick="addScore(15)">🚀 宇宙振动按摩棒</div>
+            <div class="icon" onclick="addScore(20)">🌋 喷发的欲望火山</div>
+            <div class="icon" onclick="addScore(8)">🌀 会旋转的成人玩具</div>
+        </div>
+    </div>
+
+    <div id="result" onclick="location.reload()">
+        <!-- 结果展示区 -->
+    </div>
+
+    <script>
+        let totalScore = 0;
+
+        function addScore(points) {
+            totalScore += points;
+            document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+            
+            let resultText = "";
+            if(totalScore > 30) {
+                resultText = "🔥 天作之合！建议立即举办人狗婚礼，并申请跨物种性爱先驱奖";
+            } else if(totalScore > 15) {
+                resultText = "💦 需要更多实践检验，推荐购买《犬科动物恋爱体位大全》";
+            } else {
+                resultText = "🚨 危险！伦理委员会正在赶来逮捕你们的路上";
+            }
+
+            document.getElementById('result').innerHTML = `
+                <h1>${resultText}</h1>
+                <div style="font-size:60px">${totalScore > 20 ? '🐶❤️👩🏼🎉' : '💔🚫'}</div>
+                <small>点击刷新重新配种</small>
+            `;
+            document.getElementById('result').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
